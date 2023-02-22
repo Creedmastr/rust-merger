@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "merging"
+name = "merger"
 version = "0.1.0"
