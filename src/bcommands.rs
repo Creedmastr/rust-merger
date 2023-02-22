@@ -1,6 +1,5 @@
 use std::{process::Command};
 
-#[derive(Debug)]
 pub struct Commands {}
 
 impl Commands {

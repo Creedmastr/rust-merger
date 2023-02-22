@@ -5,8 +5,8 @@ mod merge;
 fn main() {
     let args: Vec<String> = std::env::args().collect();
 
-    if args[1] == "--bak-dir" {
-        bcommands::Commands::execute("cd /.rust-merger-bak/".to_string())
+    if args[1] == "-bak-dir" {
+        std::env::set_current_dir("/.rust-merger-bak/").expect("Couldn't move dir");
     } else {
         backup::backup(&args[2]);
 
