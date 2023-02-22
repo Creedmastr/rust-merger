@@ -7,26 +7,16 @@ fn cmd_exe(cmd: String) {
 }
 
 pub fn merge(path_previous: &String, path_next: &String) {
-    if Commands::_return_os_family() == "windows" {
-        if path_previous.ends_with("/") {
-            cmd_exe("rm -r ".to_string() + path_next);
-            cmd_exe(
-                "Copy-Item -Path ".to_string()
-                    + path_previous
-                    + " -Destination "
-                    + path_next
-                    + " -Recurse",
-            );
-            cmd_exe("rm -r ".to_string() + path_previous);
-        } else {
-            // cmd_exe("rm -r ".to_string() + path_next);
-            fs::remove_file(path_next).expect("");
-            fs::copy("/.rust-merger-bak/".to_string() + &path_previous, path_next);
-            cmd_exe("rm -r ".to_string() + path_previous);
-        }
+    if path_previous.ends_with("/") {
+        fs::remove_dir_all(path_next).expect("Failed to remove the previous next dir (arg2)");
+        fs::copy("/.rust-merger-bak/".to_string() + &path_previous, path_next)
+            .expect("Failed to copy old file");
+        cmd_exe("rm -r ".to_string() + path_previous);
     } else {
-        cmd_exe("rm -r ".to_string() + path_next);
-        cmd_exe("cp ".to_string() + path_previous + " " + path_next);
+        // cmd_exe("rm -r ".to_string() + path_next);
+        fs::remove_file(path_next).expect("Failed to remove the previous next file (arg2)");
+        fs::copy("/.rust-merger-bak/".to_string() + &path_previous, path_next)
+            .expect("Failed to copy old file");
         cmd_exe("rm -r ".to_string() + path_previous);
     }
 }
