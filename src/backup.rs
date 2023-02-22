@@ -1,9 +1,15 @@
-use std::{fs, path::Path};
+use std::{fs, ops::Not, path::Path};
 
-pub fn backup(file_path: String) {
-    if !Path::new("~/.rust-bak/").exists() {
-        fs::create_dir("~/.rust-bak/").expect("Error when searching for bak dir");
+use crate::bcommands::Commands;
+
+fn cmd_exe(cmd: String) {
+    Commands::execute(cmd.to_string());
+}
+
+pub fn backup(file_path: &String) {
+    if Path::new("/.rust-bak/").exists().not() {
+        fs::create_dir("/.rust-bak/").expect("Error when searching for bak dir");
     }
 
-    fs::copy(file_path, "~/.rust-bak/").expect("Error when backing files");
+    cmd_exe("cp ".to_string() + &file_path + " /.rust-bak/");
 }

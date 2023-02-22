@@ -1,8 +1,8 @@
-mod merging;
 mod backup;
+mod bcommands;
 
 fn main() {
-    let args = std::env::args().collect();
+    let args: Vec<String> = std::env::args().collect();
 
-    backup::backup(args[1]);
+    backup::backup(&args[1]);
 }
